@@ -1,4 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { sendCartData } from './cart-actions';
+
 
 const cartSlice = createSlice({
     name: 'cart',
@@ -43,6 +45,14 @@ const cartSlice = createSlice({
                 existingItem.totalPrice = existingItem.totalPrice - existingItem.price;
             }
         },
+        extraReducers:(builder)=>{
+            builder.addCase(sendCartData.fulfilled,(state,action)=>{
+                console.log("Cart data sent",action.payload);
+            })
+             builder.addCase(sendCartData.rejected,(state,action)=>{
+                console.log("Error cart data not sent",action.payload);
+            });
+        }
         
     },
 });
